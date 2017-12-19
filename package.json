@@ -1,7 +1,7 @@
 {
   "name": "apirestmiproyecto",
   "version": "1.0.0",
-  "description": "APi Rest para la aplicacion MiProyecto cn NodeJs y Vue 2.0",
+  "description": "APi Rest para la aplicacion SolmanERP con NodeJs y Angular 5",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",

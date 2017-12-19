@@ -1,8 +1,8 @@
 'use strict'
 
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-var urlDbNube = 'mongodb://desarrollo:Desa820901*!@'+
+let urlDbNube = 'mongodb://desarrollo:Desa820901*!@'+
     'prueba-shard-00-00-rqr9q.mongodb.net:27017,'+
     'prueba-shard-00-01-rqr9q.mongodb.net:27017,'+
     'prueba-shard-00-02-rqr9q.mongodb.net:27017/'+
@@ -10,9 +10,9 @@ var urlDbNube = 'mongodb://desarrollo:Desa820901*!@'+
     'replicaSet=Prueba-shard-0&'+
     'authSource=admin';
 
-var urlDbLocal = 'mongodb://localhost:27017/desarrollo';
-var app = require('./app');
-var port = process.env.PORT || 3977;
+let urlDbLocal = 'mongodb://localhost:27017/desarrollo';
+let app = require('./app');
+let port = process.env.PORT || 3977;
 
 mongoose.connect(urlDbNube, (err, res) => {
     if(err) {
