@@ -62,39 +62,45 @@ function login(req, res){
     var email = params.email;
     var password = params.password;
 
-    User.findOne({
-       email: email.toLowerCase()
-    }, (err, user) => {
-        if(err){
-            res.status(500).send({
-               message: 'Error en la peticion.'
-            });
-        } else {
-            if(!user) {
-                res.status(404).send({
-                    message: 'Usuario no existe.'
+    if((email == null || email == '') || (password == null || password == '')){
+        res.status(404).send({
+            message: 'Usuario y/o contraseña incorrecta.'
+        });
+    } else {
+        User.findOne({
+            email: email.toLowerCase()
+        }, (err, user) => {
+            if(err){
+                res.status(500).send({
+                    message: 'Error en la peticion.'
                 });
-            }else {
-                bcrypt.compare(password, user.password, function (err, check) {
-                    if(check){
-                        if(params.gethash){
-                            res.status(200).send({
-                                token: jwt.createToken(user)
-                            });
+            } else {
+                if(!user) {
+                    res.status(404).send({
+                        message: 'Usuario no existe.'
+                    });
+                }else {
+                    bcrypt.compare(password, user.password, function (err, check) {
+                        if(check){
+                            if(params.gethash){
+                                res.status(200).send({
+                                    token: jwt.createToken(user)
+                                });
+                            } else {
+                                res.status(200).send({
+                                    user
+                                });
+                            }
                         } else {
-                            res.status(200).send({
-                                user
+                            res.status(404).send({
+                                message: 'Usuario y/o contraseña incorrecta..'
                             });
                         }
-                    } else {
-                        res.status(404).send({
-                            message: 'Usuario y/o contraseña incorrecta..'
-                        });
-                    }
-                });
+                    });
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function update(req, res) {

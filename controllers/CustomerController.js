@@ -122,7 +122,7 @@ function findByAll(req, res) {
     } else {
         var page = 1;
     }
-    var itemsPerPage = 3;
+    var itemsPerPage = 10;
 
     Customer.find().sort('nombreCompleto').paginate(page, itemsPerPage, function (error, customers, total) {
         if (error) {
