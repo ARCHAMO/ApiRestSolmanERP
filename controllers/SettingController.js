@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var Setting = require('../models/SettingModel');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let Setting = require('../models/SettingModel');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var setting = new Setting();
-    var params = req.body;
+    let setting = new Setting();
+    let params = req.body;
 
     setting.estado = params.estado;
     setting.diasValCotizacion = params.diasValCotizacion;
@@ -37,8 +37,8 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    var settingId = req.params.id;
-    var updateParams = req.body;
+    let settingId = req.params.id;
+    let updateParams = req.body;
 
     Setting.findByIdAndUpdate(settingId, updateParams, (err, settingUpdate) => {
         if(err){
@@ -61,11 +61,11 @@ function update(req, res) {
 
 function findByAll(req, res){
     if(req.params.page){
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     Setting.find().sort('estado').paginate(page, itemsPerPage, function (error, settings, total) {
         if(error){
@@ -84,7 +84,7 @@ function findByAll(req, res){
 }
 
 function findById(req, res) {
-    var settingId = req.params.id;
+    let settingId = req.params.id;
 
     Setting.findById(settingId, (error, setting) => {
        if(error){
@@ -100,7 +100,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var settingId = req.params.id;
+    let settingId = req.params.id;
 
     Setting.findByIdAndRemove(settingId, function (error, settingRemove) {
        if(error){

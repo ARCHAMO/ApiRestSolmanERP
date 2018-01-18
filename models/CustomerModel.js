@@ -1,12 +1,12 @@
 'use strict'
 
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
-var Schema = mongoose.Schema;
-var email_match = [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/, "Ingrese email valido"];
-var val_sex = ['M','F','I'];
+let mongoose = require('mongoose');
+let uniqueValidator = require('mongoose-unique-validator');
+let Schema = mongoose.Schema;
+let email_match = [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/, "Ingrese email valido"];
+let val_sex = ['M','F','I'];
 
-var CustomerSchema = Schema(
+let CustomerSchema = Schema(
     {
         tipoIdentificacion: {
             type: String,
@@ -28,7 +28,10 @@ var CustomerSchema = Schema(
             type: String,
             enum: ['AC','IN']
         },
-        celular: String,
+        celular: {
+            type: String,
+            required: "Celular es requerido"
+        },
         telefono: String,
         sexo: {
             type: String,

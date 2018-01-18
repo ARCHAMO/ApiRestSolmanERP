@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var Quotation = require('../models/QuotationModel');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let Quotation = require('../models/QuotationModel');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var quotation = new Quotation();
-    var params = req.body;
+    let quotation = new Quotation();
+    let params = req.body;
 
     quotation.customerId = params.customerId;
     quotation.fechaValidez = params.fechaValidez;
@@ -45,8 +45,8 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    var quotationId = req.params.id;
-    var updateParams = req.body;
+    let quotationId = req.params.id;
+    let updateParams = req.body;
 
     Quotation.findByIdAndUpdate(quotationId, updateParams, (err, quotationUpdate) => {
         if(err){
@@ -68,16 +68,16 @@ function update(req, res) {
 }
 
 function uploadImagen(req, res) {
-    var quotationId = req.params.id;
-    var fileName = 'No subido';
+    let quotationId = req.params.id;
+    let fileName = 'No subido';
 
     if(req.files){
-        var filePath = req.files.imagen.path;
-        var fileSplit = filePath.split('\\');
-        var fileName = fileSplit[2];
+        let filePath = req.files.imagen.path;
+        let fileSplit = filePath.split('\\');
+        let fileName = fileSplit[2];
 
-        var extSplit = fileName.split('\.');
-        var fileExt = extSplit[1];
+        let extSplit = fileName.split('\.');
+        let fileExt = extSplit[1];
         console.log(fileExt.lowercase);
 
         if(fileExt.toLowerCase() == 'png' || fileExt.toLowerCase() == 'jpg' || fileExt.toLowerCase() == 'gif'){
@@ -104,8 +104,8 @@ function uploadImagen(req, res) {
 }
 
 function getImagen(req, res) {
-    var imageFile = req.params.imageFile;
-    var pathFile = './uploads/quotations/' + imageFile;
+    let imageFile = req.params.imageFile;
+    let pathFile = './uploads/quotations/' + imageFile;
     fs.exists(pathFile, function (exists) {
         if(exists){
             res.sendFile(path.resolve(pathFile));
@@ -117,11 +117,11 @@ function getImagen(req, res) {
 
 function findByAll(req, res){
     if(req.params.page){
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     Quotation.find().sort('fechaCreacion').paginate(page, itemsPerPage, function (error, quotations, total) {
         if(error){
@@ -140,7 +140,7 @@ function findByAll(req, res){
 }
 
 function findById(req, res) {
-    var quotationId = req.params.id;
+    let quotationId = req.params.id;
 
     Quotation.findById(quotationId, (error, quotation) => {
        if(error){
@@ -156,7 +156,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var quotationId = req.params.id;
+    let quotationId = req.params.id;
 
     Quotation.findByIdAndRemove(quotationId, function (error, quotationRemove) {
        if(error){

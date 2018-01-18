@@ -1,11 +1,11 @@
 'use strict'
 
-var express = require('express');
-var CustomerController = require('../controllers/CustomerController');
-var api = express.Router();
-var md_auth = require('../middlewares/authenticated');
-var multipart = require('connect-multiparty');
-var md_upload = multipart({uploadDir: './uploads/customers'});
+let express = require('express');
+let CustomerController = require('../controllers/CustomerController');
+let api = express.Router();
+let md_auth = require('../middlewares/authenticated');
+let multipart = require('connect-multiparty');
+let md_upload = multipart({uploadDir: './uploads/customers'});
 
 // Rutas para el controlador de usuarios
 api.post('/customer', CustomerController.create);

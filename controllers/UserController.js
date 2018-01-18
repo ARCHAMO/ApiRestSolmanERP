@@ -1,15 +1,15 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var User = require('../models/UserModel');
-var bcrypt = require('bcrypt-nodejs');
-var jwt = require('../services/jwt');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let User = require('../models/UserModel');
+let bcrypt = require('bcrypt-nodejs');
+let jwt = require('../services/jwt');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var user = new User();
-    var params = req.body;
+    let user = new User();
+    let params = req.body;
 
     user.primerNombre = params.primerNombre;
     user.segundoNombre = params.segundoNombre;
@@ -57,10 +57,10 @@ function create(req, res) {
 }
 
 function login(req, res){
-    var params = req.body;
+    let params = req.body;
 
-    var email = params.email;
-    var password = params.password;
+    let email = params.email;
+    let password = params.password;
 
     if((email == null || email == '') || (password == null || password == '')){
         res.status(404).send({
@@ -104,8 +104,8 @@ function login(req, res){
 }
 
 function update(req, res) {
-    var userId = req.params.id;
-    var updateParams = req.body;
+    let userId = req.params.id;
+    let updateParams = req.body;
 
     User.findByIdAndUpdate(userId, updateParams, (err, userUpdate) => {
         if(err){
@@ -127,16 +127,16 @@ function update(req, res) {
 }
 
 function uploadImagen(req, res) {
-    var userId = req.params.id;
-    var fileName = 'No subido';
+    let userId = req.params.id;
+    let fileName = 'No subido';
 
     if(req.files){
-        var filePath = req.files.imagen.path;
-        var fileSplit = filePath.split('\\');
-        var fileName = fileSplit[2];
+        let filePath = req.files.imagen.path;
+        let fileSplit = filePath.split('\\');
+        let fileName = fileSplit[2];
 
-        var extSplit = fileName.split('\.');
-        var fileExt = extSplit[1];
+        let extSplit = fileName.split('\.');
+        let fileExt = extSplit[1];
 
         if(fileExt.toLowerCase() == 'png' || fileExt.toLowerCase() == 'jpg' || fileExt.toLowerCase() == 'gif'){
             User.findByIdAndUpdate(userId, {imagen: fileName}, (err, userUpdate) => {
@@ -162,8 +162,8 @@ function uploadImagen(req, res) {
 }
 
 function getImagen(req, res) {
-    var imageFile = req.params.imageFile;
-    var pathFile = './uploads/users/' + imageFile;
+    let imageFile = req.params.imageFile;
+    let pathFile = './uploads/users/' + imageFile;
     fs.exists(pathFile, function (exists) {
         if(exists){
             res.sendFile(path.resolve(pathFile));
@@ -175,11 +175,11 @@ function getImagen(req, res) {
 
 function findByAll(req, res){
     if(req.params.page){
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     User.find().sort('primerApellido').paginate(page, itemsPerPage, function (error, users, total) {
         if(error){
@@ -198,7 +198,7 @@ function findByAll(req, res){
 }
 
 function findById(req, res) {
-    var userId = req.params.id;
+    let userId = req.params.id;
 
     User.findById(userId, (error, user) => {
        if(error){
@@ -214,7 +214,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var userId = req.params.id;
+    let userId = req.params.id;
 
     User.findByIdAndRemove(userId, function (error, userRemove) {
        if(error){

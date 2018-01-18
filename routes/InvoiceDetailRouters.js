@@ -1,9 +1,9 @@
 'use strict'
 
-var express = require('express');
-var InvoiceDetailController = require('../controllers/InvoiceDetailController');
-var api = express.Router();
-var md_auth = require('../middlewares/authenticated');
+let express = require('express');
+let InvoiceDetailController = require('../controllers/InvoiceDetailController');
+let api = express.Router();
+let md_auth = require('../middlewares/authenticated');
 
 // Rutas para el controlador de usuarios
 api.post('/invoicedetail', InvoiceDetailController.create);

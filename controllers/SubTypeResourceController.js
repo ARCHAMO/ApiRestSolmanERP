@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var SubTypeResource = require('../models/SubTypeResourceModel');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let SubTypeResource = require('../models/SubTypeResourceModel');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var subType = new SubTypeResource();
-    var params = req.body;
+    let subType = new SubTypeResource();
+    let params = req.body;
 
     subType.nombre = params.nombre;
     subType.descripcion = params.descripcion;
@@ -36,8 +36,8 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    var subTypeId = req.params.id;
-    var updateParams = req.body;
+    let subTypeId = req.params.id;
+    let updateParams = req.body;
 
     SubTypeResource.findByIdAndUpdate(subTypeId, updateParams, (err, subTypeUpdate) => {
         if (err) {
@@ -61,11 +61,11 @@ function update(req, res) {
 
 function findByAll(req, res) {
     if (req.params.page) {
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     SubTypeResource.find().sort('nombre').paginate(page, itemsPerPage, function (error, types, total) {
         if (error) {
@@ -84,7 +84,7 @@ function findByAll(req, res) {
 }
 
 function findById(req, res) {
-    var subTypeId = req.params.id;
+    let subTypeId = req.params.id;
 
     SubTypeResource.findById(subTypeId, (error, subtyperesource) => {
         if (error) {
@@ -100,7 +100,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var subTypeId = req.params.id;
+    let subTypeId = req.params.id;
 
     SubTypeResource.findByIdAndRemove(subTypeId, function (error, subTypeRemove) {
         if (error) {

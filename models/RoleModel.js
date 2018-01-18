@@ -1,9 +1,9 @@
 'use strict'
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
-var RolSchema = Schema(
+let RolSchema = Schema(
     {
         nombre: { type: String, required: true },
         descripcion: String,

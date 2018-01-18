@@ -1,15 +1,25 @@
 'use strict'
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var uniqueValidator = require('mongoose-unique-validator');
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+let uniqueValidator = require('mongoose-unique-validator');
+let email_match = [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/, "Ingrese email valido"];
 
-var ProviderSchema = Schema(
+let ProviderSchema = Schema(
     {
-        nombre: {
+        nombreCompleto: {
             type: String,
             unique: "Nombre de cliente ya existe",
             required: "Nombre es requerido"
+        },
+        tipoIdentificacion: {
+            type: String,
+            required: "Tipo identificacion es requerido"
+        },
+        numeroIdentificacion: {
+            type: String,
+            unique: "Numero de identificacion ya existe",
+            required: "Identificacion es requerida"
         },
         descripcion: String,
         celular: {
@@ -17,9 +27,17 @@ var ProviderSchema = Schema(
             required: "Celular es requerido"
         },
         telefono: String,
-        email: String,
+        email: {
+            type: String,
+            match: email_match
+        },
         direccion: String,
         web: String,
+        ciudad: String,
+        estado: {
+            type: String,
+            enum: ['AC','IN']
+        },
         userCreacionId: {
             type: Schema.Types.ObjectId,
             ref: 'User',

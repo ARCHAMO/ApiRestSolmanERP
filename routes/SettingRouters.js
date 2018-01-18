@@ -1,9 +1,9 @@
 'use strict'
 
-var express = require('express');
-var SettingController = require('../controllers/SettingController');
-var api = express.Router();
-var md_auth = require('../middlewares/authenticated');
+let express = require('express');
+let SettingController = require('../controllers/SettingController');
+let api = express.Router();
+let md_auth = require('../middlewares/authenticated');
 
 // Rutas para el controlador de usuarios
 api.post('/setting', SettingController.create);

@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var InvoiceDetail = require('../models/InvoiceDetailModel');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let InvoiceDetail = require('../models/InvoiceDetailModel');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var invoiceDet = new InvoiceDetail();
-    var params = req.body;
+    let invoiceDet = new InvoiceDetail();
+    let params = req.body;
 
     invoiceDet.invoiceId = params.invoiceId;
     invoiceDet.typeResourceId = params.typeResourceId;
@@ -45,8 +45,8 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    var invoiceDetId = req.params.id;
-    var updateParams = req.body;
+    let invoiceDetId = req.params.id;
+    let updateParams = req.body;
 
     InvoiceDetail.findByIdAndUpdate(invoiceDetId, updateParams, (err, invoiceDetUpdate) => {
         if(err){
@@ -69,11 +69,11 @@ function update(req, res) {
 
 function findByAll(req, res){
     if(req.params.page){
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     InvoiceDetail.find().sort('consecutivo').paginate(page, itemsPerPage, function (error, invoiceDets, total) {
         if(error){
@@ -92,7 +92,7 @@ function findByAll(req, res){
 }
 
 function findById(req, res) {
-    var invoiceDetId = req.params.id;
+    let invoiceDetId = req.params.id;
 
     InvoiceDetail.findById(invoiceDetId, (error, invoiceDet) => {
        if(error){
@@ -108,7 +108,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var invoiceDetId = req.params.id;
+    let invoiceDetId = req.params.id;
 
     InvoiceDetail.findByIdAndRemove(invoiceDetId, function (error, invoiceDetRemove) {
        if(error){

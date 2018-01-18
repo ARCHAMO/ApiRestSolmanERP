@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var Invoice = require('../models/InvoiceModel');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let Invoice = require('../models/InvoiceModel');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var invoice = new Invoice();
-    var params = req.body;
+    let invoice = new Invoice();
+    let params = req.body;
 
     invoice.customerId = params.customerId;
     invoice.qoutationId = params.qoutationId;
@@ -46,8 +46,8 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    var invoiceId = req.params.id;
-    var updateParams = req.body;
+    let invoiceId = req.params.id;
+    let updateParams = req.body;
 
     Invoice.findByIdAndUpdate(invoiceId, updateParams, (err, invoiceUpdate) => {
         if(err){
@@ -69,16 +69,16 @@ function update(req, res) {
 }
 
 function uploadImagen(req, res) {
-    var invoiceId = req.params.id;
-    var fileName = 'No subido';
+    let invoiceId = req.params.id;
+    let fileName = 'No subido';
 
     if(req.files){
-        var filePath = req.files.imagen.path;
-        var fileSplit = filePath.split('\\');
-        var fileName = fileSplit[2];
+        let filePath = req.files.imagen.path;
+        let fileSplit = filePath.split('\\');
+        let fileName = fileSplit[2];
 
-        var extSplit = fileName.split('\.');
-        var fileExt = extSplit[1];
+        let extSplit = fileName.split('\.');
+        let fileExt = extSplit[1];
 
         if(fileExt.toLowerCase() == 'png' || fileExt.toLowerCase() == 'jpg' || fileExt.toLowerCase() == 'gif'){
             Invoice.findByIdAndUpdate(invoiceId, {image: fileName}, (err, invoiceUpdate) => {
@@ -104,8 +104,8 @@ function uploadImagen(req, res) {
 }
 
 function getImagen(req, res) {
-    var imageFile = req.params.imageFile;
-    var pathFile = './uploads/invoices/' + imageFile;
+    let imageFile = req.params.imageFile;
+    let pathFile = './uploads/invoices/' + imageFile;
     fs.exists(pathFile, function (exists) {
         if(exists){
             res.sendFile(path.resolve(pathFile));
@@ -117,11 +117,11 @@ function getImagen(req, res) {
 
 function findByAll(req, res){
     if(req.params.page){
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     Invoice.find().sort('fechaCreacion').paginate(page, itemsPerPage, function (error, invoices, total) {
         if(error){
@@ -140,7 +140,7 @@ function findByAll(req, res){
 }
 
 function findById(req, res) {
-    var invoiceId = req.params.id;
+    let invoiceId = req.params.id;
 
     Invoice.findById(invoiceId, (error, invoice) => {
        if(error){
@@ -156,7 +156,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var invoiceId = req.params.id;
+    let invoiceId = req.params.id;
 
     Invoice.findByIdAndRemove(invoiceId, function (error, invoiceRemove) {
        if(error){

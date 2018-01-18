@@ -1,23 +1,23 @@
 'use strict'
 
-var express = require('express');
-var bodyParser = require('body-parser');
+let express = require('express');
+let bodyParser = require('body-parser');
 
-var app = express();
+let app = express();
 
 // Cargamos las rutas
-var customerRouters = require('./routes/CustomerRouters');
-var invoiceDetailRouters = require('./routes/InvoiceDetailRouters');
-var invoiceRouters = require('./routes/InvoiceRouters');
-var providerRouters = require('./routes/ProviderRouters');
-var quotationDetailRouters = require('./routes/QuotationDetailRouters');
-var quotationRouters = require('./routes/QuotationRouters');
-var resourceRouters = require('./routes/ResourceRouters');
-var roleRouters = require('./routes/RoleRouters');
-var settingRouters = require('./routes/SettingRouters');
-var subTypeResourceRouters = require('./routes/SubTypeResourceRouters');
-var typeResourceRouters = require('./routes/TypeResourceRouters');
-var userRouters = require('./routes/UserRouters');
+let customerRouters = require('./routes/CustomerRouters');
+let invoiceDetailRouters = require('./routes/InvoiceDetailRouters');
+let invoiceRouters = require('./routes/InvoiceRouters');
+let providerRouters = require('./routes/ProviderRouters');
+let quotationDetailRouters = require('./routes/QuotationDetailRouters');
+let quotationRouters = require('./routes/QuotationRouters');
+let resourceRouters = require('./routes/ResourceRouters');
+let roleRouters = require('./routes/RoleRouters');
+let settingRouters = require('./routes/SettingRouters');
+let subTypeResourceRouters = require('./routes/SubTypeResourceRouters');
+let typeResourceRouters = require('./routes/TypeResourceRouters');
+let userRouters = require('./routes/UserRouters');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());

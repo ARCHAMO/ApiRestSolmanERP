@@ -1,10 +1,10 @@
 'use strict'
 
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let uniqueValidator = require('mongoose-unique-validator');
+let Schema = mongoose.Schema;
 
-var SubTypeResourceSchema = Schema(
+let SubTypeResourceSchema = Schema(
     {
         nombre: {
             type: String,

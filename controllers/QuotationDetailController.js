@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var QuotationDetail = require('../models/QuotationDetailModel');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let QuotationDetail = require('../models/QuotationDetailModel');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var quotationDetail = new QuotationDetail();
-    var params = req.body;
+    let quotationDetail = new QuotationDetail();
+    let params = req.body;
 
     quotationDetail.quotationId = params.quotationId;
     quotationDetail.typeResourceId = params.typeResourceId;
@@ -45,8 +45,8 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    var quotationDetailId = req.params.id;
-    var updateParams = req.body;
+    let quotationDetailId = req.params.id;
+    let updateParams = req.body;
 
     QuotationDetail.findByIdAndUpdate(quotationDetailId, updateParams, (err, quotationDetailUpdate) => {
         if(err){
@@ -69,11 +69,11 @@ function update(req, res) {
 
 function findByAll(req, res){
     if(req.params.page){
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     QuotationDetail.find().sort('fechaCreacion').paginate(page, itemsPerPage, function (error, quotationDetails, total) {
         if(error){
@@ -92,7 +92,7 @@ function findByAll(req, res){
 }
 
 function findById(req, res) {
-    var quotationDetailId = req.params.id;
+    let quotationDetailId = req.params.id;
 
     QuotationDetail.findById(quotationDetailId, (error, quotationDetail) => {
        if(error){
@@ -108,7 +108,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var quotationDetailId = req.params.id;
+    let quotationDetailId = req.params.id;
 
     QuotationDetail.findByIdAndRemove(quotationDetailId, function (error, quotationDetailRemove) {
        if(error){

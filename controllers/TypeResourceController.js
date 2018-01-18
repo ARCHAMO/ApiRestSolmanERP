@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var TypeResource = require('../models/TypeResourceModel');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let TypeResource = require('../models/TypeResourceModel');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var type = new TypeResource();
-    var params = req.body;
+    let type = new TypeResource();
+    let params = req.body;
 
     type.nombre = params.nombre;
     type.descripcion = params.descripcion;
@@ -35,8 +35,8 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    var typeId = req.params.id;
-    var updateParams = req.body;
+    let typeId = req.params.id;
+    let updateParams = req.body;
 
     TypeResource.findByIdAndUpdate(typeId, updateParams, (err, typeUpdate) => {
         if (err) {
@@ -60,11 +60,11 @@ function update(req, res) {
 
 function findByAll(req, res) {
     if (req.params.page) {
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     TypeResource.find().sort('nombre').paginate(page, itemsPerPage, function (error, types, total) {
         if (error) {
@@ -83,7 +83,7 @@ function findByAll(req, res) {
 }
 
 function findById(req, res) {
-    var customerId = req.params.id;
+    let customerId = req.params.id;
     console.log(customerId);
 
     TypeResource.findById(customerId, (error, customer) => {
@@ -100,7 +100,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var typeId = req.params.id;
+    let typeId = req.params.id;
 
     TypeResource.findByIdAndRemove(typeId, function (error, typeRemove) {
         if (error) {

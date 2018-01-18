@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var Customer = require('../models/CustomerModel');
-var mongoosePaginate = require('mongoose-pagination');
+let fs = require('fs');
+let path = require('path');
+let Customer = require('../models/CustomerModel');
+let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
-    var customer = new Customer();
-    var params = req.body;
+    let customer = new Customer();
+    let params = req.body;
 
     customer.customer = params.primerNombre;
     customer.segundoNombre = params.segundoNombre;
@@ -42,8 +42,8 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    var customerId = req.params.id;
-    var updateParams = req.body;
+    let customerId = req.params.id;
+    let updateParams = req.body;
 
     Customer.findByIdAndUpdate(customerId, updateParams, (err, customerUpdate) => {
         if(err){
@@ -65,16 +65,16 @@ function update(req, res) {
 }
 
 function uploadImagen(req, res) {
-    var customerId = req.params.id;
-    var fileName = 'No subido';
+    let customerId = req.params.id;
+    let fileName = 'No subido';
 
     if(req.files){
-        var filePath = req.files.image.path;
-        var fileSplit = filePath.split('\\');
-        var fileName = fileSplit[2];
+        let filePath = req.files.image.path;
+        let fileSplit = filePath.split('\\');
+        let fileName = fileSplit[2];
 
-        var extSplit = fileName.split('\.');
-        var fileExt = extSplit[1];
+        let extSplit = fileName.split('\.');
+        let fileExt = extSplit[1];
         console.log(fileExt.lowercase);
 
         if(fileExt.toLowerCase() == 'png' || fileExt.toLowerCase() == 'jpg' || fileExt.toLowerCase() == 'gif'){
@@ -101,8 +101,8 @@ function uploadImagen(req, res) {
 }
 
 function getImagen(req, res) {
-    var imageFile = req.params.imageFile;
-    var pathFile = './uploads/customers/' + imageFile;
+    let imageFile = req.params.imageFile;
+    let pathFile = './uploads/customers/' + imageFile;
     fs.exists(pathFile, function (exists) {
         if(exists){
             res.sendFile(path.resolve(pathFile));
@@ -114,11 +114,11 @@ function getImagen(req, res) {
 
 function findByAll(req, res){
     if(req.params.page){
-        var page = req.params.page;
+        let page = req.params.page;
     } else {
-        var page = 1;
+        let page = 1;
     }
-    var itemsPerPage = 3;
+    let itemsPerPage = 3;
 
     Customer.find().sort('nombreCompleto').paginate(page, itemsPerPage, function (error, customers, total) {
         if(error){
@@ -137,7 +137,7 @@ function findByAll(req, res){
 }
 
 function findById(req, res) {
-    var customerId = req.params.id;
+    let customerId = req.params.id;
 
     Customer.findById(customerId, (error, customer) => {
        if(error){
@@ -153,7 +153,7 @@ function findById(req, res) {
 }
 
 function destroy(req, res) {
-    var customerId = req.params.id;
+    let customerId = req.params.id;
 
     Customer.findByIdAndRemove(customerId, function (error, customerRemove) {
        if(error){

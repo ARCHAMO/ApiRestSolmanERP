@@ -1,9 +1,9 @@
 'use strict'
 
-var express = require('express');
-var SubTypeResourceController = require('../controllers/SubTypeResourceController');
-var api = express.Router();
-var md_auth = require('../middlewares/authenticated');
+let express = require('express');
+let SubTypeResourceController = require('../controllers/SubTypeResourceController');
+let api = express.Router();
+let md_auth = require('../middlewares/authenticated');
 
 // Rutas para el controlador de usuarios
 api.post('/subtyperesource', SubTypeResourceController.create);
