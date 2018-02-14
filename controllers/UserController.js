@@ -174,12 +174,13 @@ function getImagen(req, res) {
 }
 
 function findByAll(req, res){
-    if(req.params.page){
-        let page = req.params.page;
+    let page;
+    if (req.params.page) {
+        page = req.params.page;
     } else {
-        let page = 1;
+        page = 1;
     }
-    let itemsPerPage = 3;
+    let itemsPerPage = 10;
 
     User.find().sort('primerApellido').paginate(page, itemsPerPage, function (error, users, total) {
         if(error){

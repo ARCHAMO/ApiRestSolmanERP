@@ -19,9 +19,12 @@ function create(req, res) {
     provider.telefono = params.telefono;
     provider.email = params.email;
     provider.web = params.web;
+    provider.sexo = params.sexo;
     provider.imagen = 'null';
     provider.userCreacionId = params.userCreacionId;
+    provider.descripcion = params.descripcion;
 
+    // Se realizan todas las validaciones necesarias
     provider.save((err, providerStored) => {
         if (err) {
             res.status(500).send({

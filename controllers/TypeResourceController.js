@@ -12,6 +12,7 @@ function create(req, res) {
     type.nombre = params.nombre;
     type.descripcion = params.descripcion;
     type.userCreacionId = params.userCreacionId;
+    type.estado = params.estado;
 
     // Se realizan todas las validaciones necesarias
     type.save((err, typeStored) => {
@@ -59,12 +60,13 @@ function update(req, res) {
 }
 
 function findByAll(req, res) {
+    let page;
     if (req.params.page) {
-        let page = req.params.page;
+        page = req.params.page;
     } else {
-        let page = 1;
+        page = 1;
     }
-    let itemsPerPage = 3;
+    let itemsPerPage = 10;
 
     TypeResource.find().sort('nombre').paginate(page, itemsPerPage, function (error, types, total) {
         if (error) {
@@ -83,17 +85,16 @@ function findByAll(req, res) {
 }
 
 function findById(req, res) {
-    let customerId = req.params.id;
-    console.log(customerId);
+    let typeId = req.params.id;
 
-    TypeResource.findById(customerId, (error, customer) => {
+    TypeResource.findById(typeId, (error, type) => {
         if (error) {
             res.status(500).send({message: 'Error en la peticion.'});
         } else {
-            if (!customer) {
-                res.status(404).send({message: 'El cliente no existe.'});
+            if (!type) {
+                res.status(404).send({message: 'El tipo no existe.'});
             } else {
-                res.status(200).send({customer});
+                res.status(200).send(type);
             }
         }
     });

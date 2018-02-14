@@ -11,7 +11,13 @@ let SubTypeResourceSchema = Schema(
             unique: "Subtipo ya existe",
             required: "El nombre del subtipo es rquerido"
         },
-        descripcion: String,
+        descripcion: {
+            type: String,
+        },
+        estado: {
+            type: String,
+            enum: ['AC','IN']
+        },
         userCreacionId: {
             type: Schema.Types.ObjectId,
             ref: 'User',
@@ -24,7 +30,7 @@ let SubTypeResourceSchema = Schema(
         typeResourceId: {
             type: Schema.ObjectId,
             ref: 'TypeResource',
-            required: "El tipo de recurso es requerido"
+            required: "El subtipo de recurso es requerido"
         },
     },
     {

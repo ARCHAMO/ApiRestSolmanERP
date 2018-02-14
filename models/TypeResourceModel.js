@@ -14,6 +14,10 @@ let TypeResourceSchema = Schema(
         descripcion: {
             type: String,
         },
+        estado: {
+            type: String,
+            enum: ['AC','IN']
+        },
         userCreacionId: {
             type: Schema.Types.ObjectId,
             ref: 'User',

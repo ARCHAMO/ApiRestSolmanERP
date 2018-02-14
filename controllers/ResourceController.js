@@ -3,6 +3,8 @@
 let fs = require('fs');
 let path = require('path');
 let Resource = require('../models/ResourceModel');
+let SubTypeResource = require('../models/SubTypeResourceModel');
+let TypeResource = require('../models/TypeResourceModel');
 let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
@@ -19,8 +21,8 @@ function create(req, res) {
     resource.interes = params.interes;
     resource.unidad = params.unidad;
     resource.imagen = 'null';
+    resource.estado = params.estado;
     resource.userCreacionId = params.userCreacionId;
-    resource.userModificacionId = params.userModificacionId;
 
     // Se realizan todas las validaciones necesarias
     resource.save((err, resourceStored) => {
@@ -116,26 +118,31 @@ function getImagen(req, res) {
 }
 
 function findByAll(req, res) {
+    let page;
     if (req.params.page) {
-        let page = req.params.page;
+        page = req.params.page;
     } else {
-        let page = 1;
+        page = 1;
     }
-    let itemsPerPage = 3;
+    let itemsPerPage = 10;
 
     Resource.find().sort('nombre').paginate(page, itemsPerPage, function (error, resources, total) {
-        if (error) {
-            res.status(500).send({message: 'Error en la peticion'});
-        } else {
-            if (!resources) {
-                res.status(404).send({message: 'No hay recursos registrados'});
-            } else {
-                return res.status(200).send({
-                    items: total,
-                    resources: resources
-                });
-            }
-        }
+        TypeResource.populate(resources, {path:"typeResourceId"}, function (err, resources) {
+            SubTypeResource.populate(resources, {path:"subTypeResourceId"}, function (err, resources) {
+                if (error) {
+                    res.status(500).send({message: 'Error en la peticion'});
+                } else {
+                    if (!resources) {
+                        res.status(404).send({message: 'No hay recursos registrados'});
+                    } else {
+                        return res.status(200).send({
+                            items: total,
+                            resources: resources
+                        });
+                    }
+                }
+            });
+        });
     })
 }
 
@@ -143,15 +150,19 @@ function findById(req, res) {
     let resourceId = req.params.id;
 
     Resource.findById(resourceId, (error, resource) => {
-        if (error) {
-            res.status(500).send({message: 'Error en la peticion.'});
-        } else {
-            if (!resource) {
-                res.status(404).send({message: 'El recurso no existe.'});
-            } else {
-                res.status(200).send({resource});
-            }
-        }
+        TypeResource.populate(resources, {path:"typeResourceId"}, function (err, resources) {
+            SubTypeResource.populate(resources, {path:"subTypeResourceId"}, function (err, resources) {
+                if (error) {
+                    res.status(500).send({message: 'Error en la peticion.'});
+                } else {
+                    if (!resource) {
+                        res.status(404).send({message: 'El recurso no existe.'});
+                    } else {
+                        res.status(200).send({resource});
+                    }
+                }
+            });
+        });
     });
 }
 

@@ -3,6 +3,7 @@
 let fs = require('fs');
 let path = require('path');
 let SubTypeResource = require('../models/SubTypeResourceModel');
+let TypeResource = require('../models/TypeResourceModel');
 let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
@@ -13,6 +14,7 @@ function create(req, res) {
     subType.descripcion = params.descripcion;
     subType.userCreacionId = params.userCreacionId;
     subType.typeResourceId = params.typeResourceId;
+    subType.estado = params.estado;
 
     // Se realizan todas las validaciones necesarias
     subType.save((err, subTypeStored) => {
@@ -60,26 +62,29 @@ function update(req, res) {
 }
 
 function findByAll(req, res) {
+    let page;
     if (req.params.page) {
-        let page = req.params.page;
+        page = req.params.page;
     } else {
-        let page = 1;
+        page = 1;
     }
-    let itemsPerPage = 3;
+    let itemsPerPage = 10;
 
     SubTypeResource.find().sort('nombre').paginate(page, itemsPerPage, function (error, types, total) {
-        if (error) {
-            res.status(500).send({message: 'Error en la peticion'});
-        } else {
-            if (!types) {
-                res.status(404).send({message: 'No hay subtipos registrados'});
+        TypeResource.populate(types, {path:"typeResourceId"}, function (err, types) {
+            if (error) {
+                res.status(500).send({message: 'Error en la peticion'});
             } else {
-                return res.status(200).send({
-                    items: total,
-                    subtyperesources: types
-                });
+                if (!types) {
+                    res.status(404).send({message: 'No hay subtipos registrados'});
+                } else {
+                    return res.status(200).send({
+                        items: total,
+                        subtyperesources: types
+                    });
+                }
             }
-        }
+        })
     })
 }
 
@@ -87,15 +92,17 @@ function findById(req, res) {
     let subTypeId = req.params.id;
 
     SubTypeResource.findById(subTypeId, (error, subtyperesource) => {
-        if (error) {
-            res.status(500).send({message: 'Error en la peticion.'});
-        } else {
-            if (!subtyperesource) {
-                res.status(404).send({message: 'El subtipo no existe.'});
+        TypeResource.populate(types, {path:"typeResourceId"}, function (err, types) {
+            if (error) {
+                res.status(500).send({message: 'Error en la peticion.'});
             } else {
-                res.status(200).send({subtyperesource});
+                if (!subtyperesource) {
+                    res.status(404).send({message: 'El subtipo no existe.'});
+                } else {
+                    res.status(200).send(subtyperesource);
+                }
             }
-        }
+        });
     });
 }
 

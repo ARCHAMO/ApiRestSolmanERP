@@ -19,6 +19,7 @@ function create(req, res) {
     customer.telefono = params.telefono;
     customer.email = params.email;
     customer.web = params.web;
+    customer.sexo = params.sexo;
     customer.imagen = 'null';
     customer.userCreacionId = params.userCreacionId;
 

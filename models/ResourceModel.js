@@ -35,6 +35,10 @@ let ResourceSchema = Schema(
             type: Number,
             default: 0
         },
+        estado: {
+            type: String,
+            enum: ['AC','IN']
+        },
         interes: {
             type: Number,
             default: 0
