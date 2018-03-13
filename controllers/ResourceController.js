@@ -150,15 +150,15 @@ function findById(req, res) {
     let resourceId = req.params.id;
 
     Resource.findById(resourceId, (error, resource) => {
-        TypeResource.populate(resources, {path:"typeResourceId"}, function (err, resources) {
-            SubTypeResource.populate(resources, {path:"subTypeResourceId"}, function (err, resources) {
+        TypeResource.populate(resource, {path:"typeResourceId"}, function (err, resource) {
+            SubTypeResource.populate(resource, {path:"subTypeResourceId"}, function (err, resources) {
                 if (error) {
                     res.status(500).send({message: 'Error en la peticion.'});
                 } else {
                     if (!resource) {
                         res.status(404).send({message: 'El recurso no existe.'});
                     } else {
-                        res.status(200).send({resource});
+                        res.status(200).send(resource);
                     }
                 }
             });

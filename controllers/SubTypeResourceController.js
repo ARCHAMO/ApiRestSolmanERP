@@ -88,6 +88,34 @@ function findByAll(req, res) {
     })
 }
 
+function findByCriteria(req, res) {
+    let page;
+    let criterios = req.body;
+    if (req.params.page) {
+        page = req.params.page;
+    } else {
+        page = 1;
+    }
+    let itemsPerPage = 10;
+
+    SubTypeResource.find(criterios).paginate(page, itemsPerPage, function (error, types, total) {
+        TypeResource.populate(types, {path:"typeResourceId"}, function (err, types) {
+            if (error) {
+                res.status(500).send({message: 'Error en la peticion'});
+            } else {
+                if (!types) {
+                    res.status(404).send({message: 'No hay subtipos registrados'});
+                } else {
+                    return res.status(200).send({
+                        items: total,
+                        subtyperesources: types
+                    });
+                }
+            }
+        })
+    })
+}
+
 function findById(req, res) {
     let subTypeId = req.params.id;
 
@@ -127,5 +155,6 @@ module.exports = {
     update,
     findByAll,
     findById,
+    findByCriteria,
     destroy
 };
