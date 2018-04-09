@@ -13,6 +13,7 @@ api.put('/resource/update/:id', md_auth.ensureAuth, ResourceController.update);
 api.post('/resource/upload-imagen/:id', [md_auth.ensureAuth, md_upload], ResourceController.uploadImagen);
 api.get('/resource/get-imagen/:imageFile', ResourceController.getImagen);
 api.get('/resources/:page?', md_auth.ensureAuth, ResourceController.findByAll);
+api.post('/resourcescriteria/:page?', md_auth.ensureAuth, ResourceController.findByCriteria);
 api.get('/resource/:id', md_auth.ensureAuth, ResourceController.findById);
 api.delete('/resource/:id', md_auth.ensureAuth, ResourceController.destroy);
 

@@ -3,6 +3,7 @@
 let fs = require('fs');
 let path = require('path');
 let Quotation = require('../models/QuotationModel');
+let Customer = require('../models/CustomerModel');
 let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
@@ -125,18 +126,20 @@ function findByAll(req, res){
     let itemsPerPage = 10;
 
     Quotation.find().sort('fechaCreacion').paginate(page, itemsPerPage, function (error, quotations, total) {
-        if(error){
-            res.status(500).send({message: 'Error en la peticion'});
-        } else {
-            if(!quotations){
-                res.status(404).send({message: 'No hay cotizaciones registradas'});
+        Customer.populate(quotations, {path:"customerId"}, function (err, quotations) {
+            if(error){
+                res.status(500).send({message: 'Error en la peticion'});
             } else {
-                return res.status(200).send({
-                    items: total,
-                    quotations: quotations
-                });
+                if(!quotations){
+                    res.status(404).send({message: 'No hay cotizaciones registradas'});
+                } else {
+                    return res.status(200).send({
+                        items: total,
+                        quotations: quotations
+                    });
+                }
             }
-        }
+        });
     })
 }
 

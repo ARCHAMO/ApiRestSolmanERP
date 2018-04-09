@@ -35,6 +35,10 @@ let QuotationDetailSchema = Schema(
             type: Number,
             default: 0
         },
+        unidad: {
+            type: String,
+            required: 'La unidad es requerrdo'
+        },
         valorInicial: {
             type: Number,
             default: 0

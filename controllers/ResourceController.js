@@ -146,6 +146,36 @@ function findByAll(req, res) {
     })
 }
 
+function findByCriteria(req, res) {
+    let page;
+    let criterios = req.body;
+    if (req.params.page) {
+        page = req.params.page;
+    } else {
+        page = 1;
+    }
+    let itemsPerPage = 10;
+
+    Resource.find(criterios).sort('nombre').paginate(page, itemsPerPage, function (error, resources, total) {
+        TypeResource.populate(resources, {path:"typeResourceId"}, function (err, resources) {
+            SubTypeResource.populate(resources, {path:"subTypeResourceId"}, function (err, resources) {
+                if (error) {
+                    res.status(500).send({message: 'Error en la peticion'});
+                } else {
+                    if (!resources) {
+                        res.status(404).send({message: 'No hay recursos registrados'});
+                    } else {
+                        return res.status(200).send({
+                            items: total,
+                            resources: resources
+                        });
+                    }
+                }
+            });
+        });
+    })
+}
+
 function findById(req, res) {
     let resourceId = req.params.id;
 
@@ -188,6 +218,7 @@ module.exports = {
     uploadImagen,
     getImagen,
     findByAll,
+    findByCriteria,
     findById,
     destroy
 };

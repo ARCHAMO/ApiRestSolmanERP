@@ -16,6 +16,7 @@ function create(req, res) {
     quotationDetail.descripcion = params.descripcion;
     quotationDetail.consecutivo = params.consecutivo;
     quotationDetail.cantidad = params.cantidad;
+    quotationDetail.unidad = params.unidad;
     quotationDetail.valorInicial = params.valorInicial;
     quotationDetail.valorAplicado = params.valorAplicado;
     quotationDetail.interesAplicado = params.interesAplicado;
