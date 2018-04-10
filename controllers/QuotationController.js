@@ -147,15 +147,15 @@ function findById(req, res) {
     let quotationId = req.params.id;
 
     Quotation.findById(quotationId, (error, quotation) => {
-       if(error){
-           res.status(500).send({message: 'Error en la peticion.'});
-       } else {
-           if(!quotation){
-               res.status(404).send({message: 'La cotización no existe.'});
-           } else {
-               res.status(500).send({quotation});
-           }
-       }
+        if (error) {
+            res.status(500).send({message: 'Error en la peticion.'});
+        } else {
+            if (!quotation) {
+                res.status(404).send({message: 'La cotización no existe.'});
+            } else {
+                res.status(200).send(quotation);
+            }
+        }
     });
 }
 
