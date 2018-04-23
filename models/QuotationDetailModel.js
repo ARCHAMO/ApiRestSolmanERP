@@ -43,10 +43,6 @@ let QuotationDetailSchema = Schema(
             type: Number,
             default: 0
         },
-        valorAplicado: {
-            type: Number,
-            default: 0
-        },
         interesAplicado: {
             type: Number,
             default: 0

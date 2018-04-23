@@ -3,11 +3,16 @@
 let fs = require('fs');
 let path = require('path');
 let QuotationDetail = require('../models/QuotationDetailModel');
+let Resource = require('../models/ResourceModel');
+let SubTypeResource = require('../models/SubTypeResourceModel');
+let TypeResource = require('../models/TypeResourceModel');
 let mongoosePaginate = require('mongoose-pagination');
 
 function create(req, res) {
     let quotationDetail = new QuotationDetail();
     let params = req.body;
+
+    console.log(params);
 
     quotationDetail.quotationId = params.quotationId;
     quotationDetail.typeResourceId = params.typeResourceId;
@@ -18,7 +23,6 @@ function create(req, res) {
     quotationDetail.cantidad = params.cantidad;
     quotationDetail.unidad = params.unidad;
     quotationDetail.valorInicial = params.valorInicial;
-    quotationDetail.valorAplicado = params.valorAplicado;
     quotationDetail.interesAplicado = params.interesAplicado;
     quotationDetail.descuentoAplicado = params.descuentoAplicado;
     quotationDetail.totalNeto = params.totalNeto;
@@ -93,6 +97,38 @@ function findByAll(req, res){
     })
 }
 
+function findByCriteria(req, res) {
+    let page;
+    let criterios = req.body;
+    if (req.params.page) {
+        page = req.params.page;
+    } else {
+        page = 1;
+    }
+    let itemsPerPage = 10;
+
+    QuotationDetail.find(criterios).sort('fechaCreacion').paginate(page, itemsPerPage, function (error, quotationDetails, total) {
+        Resource.populate(quotationDetails, {path:"resourceId"}, function (err, quotationDetails) {
+            TypeResource.populate(quotationDetails, {path:"typeResourceId"}, function (err, quotationDetails) {
+                SubTypeResource.populate(quotationDetails, {path:"subTypeResourceId"}, function (err, quotationDetails) {
+                    if (error) {
+                        res.status(500).send({message: 'Error en la peticion'});
+                    } else {
+                        if (!quotationDetails) {
+                            res.status(404).send({message: 'No hay detalles registrados'});
+                        } else {
+                            return res.status(200).send({
+                                items: total,
+                                quotationDetails: quotationDetails
+                            });
+                        }
+                    }
+                });
+            });
+        })
+    })
+}
+
 function findById(req, res) {
     let quotationDetailId = req.params.id;
 
@@ -129,6 +165,7 @@ module.exports = {
     create,
     update,
     findByAll,
+    findByCriteria,
     findById,
     destroy
 };

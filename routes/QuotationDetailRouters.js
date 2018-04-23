@@ -10,6 +10,7 @@ let multipart = require('connect-multiparty');
 api.post('/quotationdetail', QuotationDetailController.create);
 api.put('/quotationdetail/update/:id', md_auth.ensureAuth, QuotationDetailController.update);
 api.get('/quotationdetails/:page?', md_auth.ensureAuth, QuotationDetailController.findByAll);
+api.post('/quotationdetailscriteria/:page?', md_auth.ensureAuth, QuotationDetailController.findByCriteria);
 api.get('/quotationdetail/:id', md_auth.ensureAuth, QuotationDetailController.findById);
 api.delete('/quotationdetail/:id', md_auth.ensureAuth, QuotationDetailController.destroy);
 
