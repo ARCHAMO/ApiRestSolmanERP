@@ -15,23 +15,26 @@ function create(req, res) {
     user.segundoNombre = params.segundoNombre;
     user.primerApellido = params.primerApellido;
     user.segundoApellido = params.segundoApellido;
+    user.password = (params.password == '') ? '123': params.password;
     user.email = params.email;
     user.image = 'null';
     user.rol = 'Operador';
 
-    if (params.password){
+    if (user.password){
         //Encritamos el paswwordc
         bcrypt.hash(params.password, null, null, function (err, hash) {
             user.password = hash;
             if(user.primerNombre != null && user.primerApellido != null && user.email != null) {
                 user.save((err, userStored) => {
                     if(err){
+                        console.log('C');
                         console.log(err);
                         res.status(500).send({
                             message: 'Error al guardar el usuario'
                         });
                     } else {
                         if(!userStored){
+                            console.log('D');
                             res.status(404).send({
                                 message: 'No se ha registrado el usuario'
                             });
