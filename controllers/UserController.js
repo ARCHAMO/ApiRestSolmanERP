@@ -17,6 +17,8 @@ function create(req, res) {
     user.segundoApellido = params.segundoApellido;
     user.password = (params.password == '') ? '123': params.password;
     user.email = params.email;
+    user.profesion = params.profesion;
+    user.cargo = params.cargo;
     user.image = 'null';
     user.rol = 'Operador';
 

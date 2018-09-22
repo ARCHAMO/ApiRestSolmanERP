@@ -14,6 +14,8 @@ let UserSchema = Schema(
         ciudad: String,
         barrio: String,
         direccion: String,
+        profesion: String,
+        cargo: String,
         fechaNacimiento: Date,
         fechaAlta: Date,
         fechaBaja: Date,
