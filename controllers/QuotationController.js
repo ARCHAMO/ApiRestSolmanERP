@@ -15,13 +15,14 @@ function create(req, res) {
     quotation.formaPago = params.formaPago;
     quotation.detalleFormaPago = params.detalleFormaPago;
     quotation.consecutivo = params.consecutivo;
-    quotation.totalProductos = params.totalProductos;
-    quotation.otros = params.otros;
-    quotation.totalIntereses = params.totalIntereses;
-    quotation.totalNeto = params.totalNeto;
+    quotation.recursosTotal = params.recursosTotal;
+    quotation.valorInicialTotal = params.valorInicialTotal;
+    quotation.interesAplicadoTotal = params.interesAplicadoTotal;
+    quotation.descuentoAplicadoTotal = params.descuentoAplicadoTotal;
+    quotation.totalNetoTotal = params.totalNetoTotal;
+    quotation.otrosTotal = params.otrosTotal;
+    quotation.estado = params.estado;
     quotation.fechaEntrega = params.fechaEntrega;
-    quotation.porcDescuento = params.porcDescuento;
-    quotation.valorDescuento = params.valorDescuento;
     quotation.image = 'null';
     quotation.userCreacionId = params.userCreacionId;
 
@@ -52,7 +53,7 @@ function update(req, res) {
     Quotation.findByIdAndUpdate(quotationId, updateParams, (err, quotationUpdate) => {
         if(err){
             res.status(500).send({
-               message: 'Error al actualizar la cotización'
+               message: 'Error al actualizar la cotización ' + err
             });
         } else {
             if(!quotationUpdate){

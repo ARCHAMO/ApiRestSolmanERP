@@ -28,7 +28,7 @@ function create(req, res) {
                 });
             } else {
                 res.status(200).send({
-                    customer: typeStored
+                    typeresource: typeStored
                 });
             }
         }

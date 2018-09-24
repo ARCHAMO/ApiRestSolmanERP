@@ -12,8 +12,6 @@ function create(req, res) {
     let quotationDetail = new QuotationDetail();
     let params = req.body;
 
-    console.log(params);
-
     quotationDetail.quotationId = params.quotationId;
     quotationDetail.typeResourceId = params.typeResourceId;
     quotationDetail.subTypeResourceId = params.subTypeResourceId;
@@ -27,7 +25,6 @@ function create(req, res) {
     quotationDetail.descuentoAplicado = params.descuentoAplicado;
     quotationDetail.totalNeto = params.totalNeto;
     quotationDetail.userCreacionId = params.userCreacionId;
-    quotationDetail.valorInicial = params.segundoNombre;
 
     quotationDetail.save((err, quotationDetailStored) => {
         if(err){

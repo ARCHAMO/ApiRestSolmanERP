@@ -22,16 +22,34 @@ let QuotationSchema = Schema(
             required: 'El consecutivo es requerido',
             unique: 'El consecutivo ya ha sido utilizado'
         },
-        totalRecursos: Number,
-        otros: Number,
-        totalIntereses: Number,
-        totalNeto: Number,
+        recursosTotal: {
+            type: Number,
+            default: 0
+        },
+        valorInicialTotal: {
+            type: Number,
+            default: 0
+        },
+        interesAplicadoTotal: {
+            type: Number,
+            default: 0
+        },
+        descuentoAplicadoTotal: {
+            type: Number,
+            default: 0
+        },
+        totalNetoTotal: {
+            type: Number,
+            default: 0
+        },
+        otrosTotal: {
+            type: Number,
+            default: 0
+        },
         estado: String,
         fechaEntrega: Date,
         fechaAnulacion: Date,
         descripcionAnulacion: String,
-        porcDescuento: Number,
-        valorDescuento: Number,
         imagen: String,
         userCreacionId: {
             type: Schema.ObjectId,

@@ -55,6 +55,10 @@ let QuotationDetailSchema = Schema(
             type: Number,
             default: 0
         },
+        otros: {
+            type: Number,
+            default: 0
+        },
         userCreacionId: {
             type: Schema.ObjectId,
             ref: 'User',
