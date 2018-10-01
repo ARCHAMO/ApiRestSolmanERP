@@ -21,6 +21,7 @@ function create(req, res) {
     user.cargo = params.cargo;
     user.image = 'null';
     user.rol = 'Operador';
+    user.userCreacionId = params.userCreacionId;
 
     if (user.password){
         //Encritamos el paswwordc
