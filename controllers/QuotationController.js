@@ -15,16 +15,18 @@ function create(req, res) {
     quotation.formaPago = params.formaPago;
     quotation.detalleFormaPago = params.detalleFormaPago;
     quotation.consecutivo = params.consecutivo;
-    quotation.recursosTotal = params.recursosTotal;
-    quotation.valorInicialTotal = params.valorInicialTotal;
-    quotation.interesAplicadoTotal = params.interesAplicadoTotal;
-    quotation.descuentoAplicadoTotal = params.descuentoAplicadoTotal;
-    quotation.totalNetoTotal = params.totalNetoTotal;
-    quotation.otrosTotal = params.otrosTotal;
     quotation.estado = params.estado;
     quotation.fechaEntrega = params.fechaEntrega;
+    quotation.observaciones = params.observaciones;
     quotation.image = 'null';
     quotation.userCreacionId = params.userCreacionId;
+    quotation.totalRecursos = params.totalRecursos;
+    quotation.totalIva = params.totalIva;
+    quotation.totalImpuesto = params.totalImpuesto;
+    quotation.totalAdministracion = params.totalAdministracion;
+    quotation.totalGanancia = params.totalGanancia;
+    quotation.subTotal = params.subTotal;
+    quotation.totalNeto = params.totalNeto;
 
     quotation.save((err, quotationStored) => {
         if(err){
@@ -148,15 +150,17 @@ function findById(req, res) {
     let quotationId = req.params.id;
 
     Quotation.findById(quotationId, (error, quotation) => {
-        if (error) {
-            res.status(500).send({message: 'Error en la peticion.'});
-        } else {
-            if (!quotation) {
-                res.status(404).send({message: 'La cotización no existe.'});
+        Customer.populate(quotation, {path:"customerId"}, function (error, quotation) {
+            if (error) {
+                res.status(500).send({message: 'Error en la peticion.'});
             } else {
-                res.status(200).send(quotation);
+                if (!quotation) {
+                    res.status(404).send({message: 'La cotización no existe.'});
+                } else {
+                    res.status(200).send(quotation);
+                }
             }
-        }
+        });
     });
 }
 

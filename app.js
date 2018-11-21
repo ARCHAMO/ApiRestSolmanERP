@@ -18,6 +18,7 @@ let settingRouters = require('./routes/SettingRouters');
 let subTypeResourceRouters = require('./routes/SubTypeResourceRouters');
 let typeResourceRouters = require('./routes/TypeResourceRouters');
 let userRouters = require('./routes/UserRouters');
+let configurationRouters = require('./routes/ConfigurationRouters');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -44,6 +45,7 @@ app.use('/api', settingRouters);
 app.use('/api', subTypeResourceRouters);
 app.use('/api', typeResourceRouters);
 app.use('/api', userRouters);
+app.use('/api', configurationRouters);
 
 module.exports = app;
 

@@ -29,14 +29,11 @@ function create(req, res) {
             if(user.primerNombre != null && user.primerApellido != null && user.email != null) {
                 user.save((err, userStored) => {
                     if(err){
-                        console.log('C');
-                        console.log(err);
                         res.status(500).send({
                             message: 'Error al guardar el usuario'
                         });
                     } else {
                         if(!userStored){
-                            console.log('D');
                             res.status(404).send({
                                 message: 'No se ha registrado el usuario'
                             });
