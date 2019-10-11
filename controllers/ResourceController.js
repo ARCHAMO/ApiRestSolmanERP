@@ -21,6 +21,10 @@ function create(req, res) {
     resource.interes = params.interes;
     resource.unidad = params.unidad;
     resource.imagen = 'null';
+    resource.aplAdministracion = params.aplAdministracion;
+    resource.aplGanancia = params.aplGanancia;
+    resource.aplImprevistos = params.aplImprevistos;
+    resource.aplImpuestos = params.aplImpuestos;
     resource.estado = params.estado;
     resource.userCreacionId = params.userCreacionId;
 

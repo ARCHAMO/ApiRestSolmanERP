@@ -27,10 +27,6 @@ let QuotationDetailSchema = Schema(
             required: 'El recurso es requerido'
         },
         descripcion: String,
-        consecutivo: {
-            type: Number,
-            required: 'El consecutivo es requerrdo'
-        },
         cantidad: {
             type: Number,
             default: 0
@@ -38,26 +34,6 @@ let QuotationDetailSchema = Schema(
         unidad: {
             type: String,
             required: 'La unidad es requerrdo'
-        },
-        valorInicial: {
-            type: Number,
-            default: 0
-        },
-        interesAplicado: {
-            type: Number,
-            default: 0
-        },
-        descuentoAplicado: {
-            type: Number,
-            default: 0
-        },
-        totalNeto: {
-            type: Number,
-            default: 0
-        },
-        otros: {
-            type: Number,
-            default: 0
         },
         userCreacionId: {
             type: Schema.ObjectId,
@@ -67,6 +43,58 @@ let QuotationDetailSchema = Schema(
         userModificacionId: {
             type: Schema.ObjectId,
             ref: 'User'
+        },
+        valorUnitario: {
+            type: Number,
+            default: 0
+        },
+        porcIvaAplicado: {
+            type: Number,
+            default: 0
+        },
+        valorIvaAplicado: {
+            type: Number,
+            default: 0
+        },
+        porcImpAplicado: {
+            type: Number,
+            default: 0
+        },
+        valorImpAplicado: {
+            type: Number,
+            default: 0
+        },
+        porcImprevistosAplicado: {
+            type: Number,
+            default: 0
+        },
+        valorImprevistosAplicado: {
+            type: Number,
+            default: 0
+        },
+        porcAdmAplicado: {
+            type: Number,
+            default: 0
+        },
+        valorAdmAplicado: {
+            type: Number,
+            default: 0
+        },
+        porcGanAplicado: {
+            type: Number,
+            default: 0
+        },
+        valorGanAplicado: {
+            type: Number,
+            default: 0
+        },
+        subTotal: {
+            type: Number,
+            default: 0
+        },
+        totalNeto: {
+            type: Number,
+            default: 0
         },
     },
     {

@@ -17,14 +17,22 @@ function create(req, res) {
     quotationDetail.subTypeResourceId = params.subTypeResourceId;
     quotationDetail.resourceId = params.resourceId;
     quotationDetail.descripcion = params.descripcion;
-    quotationDetail.consecutivo = params.consecutivo;
     quotationDetail.cantidad = params.cantidad;
     quotationDetail.unidad = params.unidad;
-    quotationDetail.valorInicial = params.valorInicial;
-    quotationDetail.interesAplicado = params.interesAplicado;
-    quotationDetail.descuentoAplicado = params.descuentoAplicado;
-    quotationDetail.totalNeto = params.totalNeto;
     quotationDetail.userCreacionId = params.userCreacionId;
+    quotationDetail.valorUnitario = params.valorUnitario;
+    quotationDetail.porcIvaAplicado = params.porcIvaAplicado;
+    quotationDetail.valorIvaAplicado = params.valorIvaAplicado;
+    quotationDetail.porcImpAplicado = params.porcImpAplicado;
+    quotationDetail.valorImpAplicado = params.valorImpAplicado;
+    quotationDetail.porcImprevistosAplicado = params.porcImprevistosAplicado;
+    quotationDetail.valorImprevistosAplicado = params.valorImprevistosAplicado;
+    quotationDetail.porcAdmAplicado = params.porcAdmAplicado;
+    quotationDetail.valorAdmAplicado = params.valorAdmAplicado;
+    quotationDetail.porcGanAplicado = params.porcGanAplicado;
+    quotationDetail.valorGanAplicado = params.valorGanAplicado;
+    quotationDetail.subTotal = params.subTotal;
+    quotationDetail.totalNeto = params.totalNeto;
 
     quotationDetail.save((err, quotationDetailStored) => {
         if(err){
@@ -39,7 +47,7 @@ function create(req, res) {
                 });
             } else {
                 res.status(200).send({
-                    quotationDetailStored: quotationDetailStored
+                    quotationDetail: quotationDetailStored
                 });
             }
         }
@@ -62,7 +70,7 @@ function update(req, res) {
                 });
             } else {
                 res.status(200).send({
-                    quotationDetailUpdate: quotationDetailUpdate
+                    quotationDetail: quotationDetailUpdate
                 });
             }
         }

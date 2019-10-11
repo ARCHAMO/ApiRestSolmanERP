@@ -45,6 +45,10 @@ let ResourceSchema = Schema(
         },
         unidad: String,
         imagen: String,
+        aplAdministracion: Boolean,
+        aplGanancia: Boolean,
+        aplImprevistos: Boolean,
+        aplImpuestos: Boolean,
         userCreacionId: {
             type: Schema.Types.ObjectId,
             ref: 'User',
